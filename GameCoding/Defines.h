@@ -1,5 +1,5 @@
 ﻿#pragma once
-#define DECLARE_SINGLE(classname)           \
+#define DECLARE_SINGLE(classname)          \
 private:                                   \
     classname() {}                         \
 public:                                    \
@@ -10,3 +10,11 @@ public:                                    \
     }
 
 #define GET_SINGLE(classname)   classname::GetInstance()
+
+
+#define SAFE_DELETE(ptr)                   \
+if (ptr)                                   \
+{                                          \
+    delete ptr;                            \
+    ptr = nullptr;                         \
+}

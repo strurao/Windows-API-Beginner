@@ -13,5 +13,11 @@ public:
 private:
 	HWND _hwnd = {};
 	HDC _hdc = {};
+
+private:
+	// Double Buffering
+	RECT _rect;
+	HDC _hdcBack = {}; // 백버퍼
+	HBITMAP _bmpBack = {}; // 프런트버퍼. 백버퍼에서 그린걸 화면에 나타낸다.
 };
 
