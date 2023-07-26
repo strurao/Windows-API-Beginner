@@ -168,20 +168,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             // 문자
             WCHAR buffer[100];
-            ::wsprintf(buffer, L"(%d, %d)", mousePosX, mousePosY);
-            ::TextOut(hdc, 100, 100, buffer, ::wcslen(buffer));
+            //::wsprintf(buffer, L"(%d, %d)", mousePosX, mousePosY);
+            //::TextOut(hdc, 100, 100, buffer, ::wcslen(buffer));
             //hdc 라는 도화지의 100,100 좌표에 TEST라는 문자열을 출력하고, 문자열 길이는 4이다
 
             // 사각형
-            ::Rectangle(hdc, 200, 200, 400, 400);
+            //::Rectangle(hdc, 200, 200, 400, 400);
 
             // 원
-            ::Ellipse(hdc, 200, 200, 400, 400);
+            //::Ellipse(hdc, 200, 200, 400, 400);
 
             // 선
-            ::MoveToEx(hdc, 300, 300, nullptr);
-            ::LineTo(hdc, 400, 400);
-            ::LineTo(hdc, 600, 300);
+            //::MoveToEx(hdc, 300, 300, nullptr);
+            //::LineTo(hdc, 400, 400);
+            //::LineTo(hdc, 600, 300);
 
             EndPaint(hWnd, &ps);
         }

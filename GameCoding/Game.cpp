@@ -3,6 +3,7 @@
 #include "TimeManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 
 Game::Game()
 {
@@ -13,6 +14,8 @@ Game::~Game()
 {
 	// 사실 마지막에 넣어야 의미가 있다.. 이건 예시로 넣어본다!
 	GET_SINGLE(SceneManager)->Clear();
+	GET_SINGLE(ResourceManager)->Clear();
+
 	_CrtDumpMemoryLeaks();
 }
 
@@ -32,6 +35,7 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(InputManager)->Init(hwnd);
 	GET_SINGLE(SceneManager)->Init();
+	GET_SINGLE(ResourceManager)->Init();
 
 	GET_SINGLE(SceneManager)->ChangeScene(SceneType::GameScene);
 }
