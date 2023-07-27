@@ -66,12 +66,16 @@ void Missile::Update()
 		if (object->GetObjectType() != ObjectType::Monster)
 			continue;
 
-		Pos p1 = GetPos();
-		Pos p2 = object->GetPos();
+		Vector p1 = GetPos();
+		Vector p2 = object->GetPos();
 
+		Vector dir = p2 - p1;
+		float dist = dir.Length();
+		/*
 		const float dx = p1.x - p2.x;
 		const float dy = p1.y - p2.y;
 		float dist = sqrt(dx * dx + dy * dy);
+		*/
 
 		if (dist < 25)
 		{
