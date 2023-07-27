@@ -14,6 +14,10 @@ public:
 
 protected:
 	float _angle = 0.f;
+
+	float _sumTime = 0.f;
+	Object* _target = nullptr;
+
 	// Object* _target; 
 	/*
 	이렇게 타겟을 포인터로 해줬을 때 오류가 생길 수 있다

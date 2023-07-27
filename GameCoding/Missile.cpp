@@ -24,9 +24,37 @@ void Missile::Update()
 {
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
-	//
-	_pos.x += _stat.speed * deltaTime * ::cos(_angle);
-	_pos.y -= _stat.speed * deltaTime * ::sin(_angle);
+	// 유도탄
+	if (_target == nullptr)
+	{
+		// scalar 값으로 하나하나 구해준 방식
+		_pos.x += _stat.speed * deltaTime * ::cos(_angle);
+		_pos.y -= _stat.speed * deltaTime * ::sin(_angle);
+
+		_sumTime += deltaTime;
+		if (_sumTime >= 0.2f)
+		{
+			// 내 주변의 몬스터들 목록
+			const vector<Object*>& objects = GET_SINGLE(ObjectManager)->GetObjects();
+			for (Object* object : objects)
+			{
+				if (object->GetObjectType() == ObjectType::Monster)
+				{
+					_target = object; // 위험한 방식
+					break;
+				}
+			}
+		}
+	}
+	else 
+	{
+		// vector 로 방향, 값을 한번에 구해준 방식
+		Vector dir = _target->GetPos() - GetPos(); // 괜찮을..까?
+		dir.Normalize();
+
+		Vector moveDir = dir * _stat.speed * deltaTime;
+		_pos += moveDir;
+	}
 
 	// 충돌
 	const vector<Object*> objects = GET_SINGLE(ObjectManager)->GetObjects();
@@ -47,8 +75,8 @@ void Missile::Update()
 
 		if (dist < 25)
 		{
-			GET_SINGLE(ObjectManager)->Remove(object);
-			GET_SINGLE(ObjectManager)->Remove(this);
+			GET_SINGLE(ObjectManager)->Remove(object); // 괜찮을..까?
+			GET_SINGLE(ObjectManager)->Remove(this); // 괜찮을..까?
 			return;
 		}
 
