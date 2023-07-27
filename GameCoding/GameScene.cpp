@@ -18,11 +18,13 @@ GameScene::~GameScene()
 
 void GameScene::Init()
 {
+	/*
 	{
 		Player* player = GET_SINGLE(ObjectManager)->CreateObject<Player>();
 		player->SetPos(Pos{ 400, 400 });
 		GET_SINGLE(ObjectManager)->Add(player);
 	}
+	*/
 
 	/*
 	for (int32 i = 0; i<5; i++)
@@ -34,7 +36,7 @@ void GameScene::Init()
 	*/
 	{
 		Monster* monster = GET_SINGLE(ObjectManager)->CreateObject<Monster>();
-		monster->SetPos(Pos{ 100, 100 });
+		monster->SetPos(Pos{ 400, 400 });
 		GET_SINGLE(ObjectManager)->Add(monster);
 	}
 }

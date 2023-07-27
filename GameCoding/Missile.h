@@ -18,7 +18,7 @@ protected:
 	float _sumTime = 0.f;
 	Object* _target = nullptr;
 
-	// Object* _target; 
+	// Object* _target; // 괜찮을..까?
 	/*
 	이렇게 타겟을 포인터로 해줬을 때 오류가 생길 수 있다
 	int32 로 id 를 만들거나 shared_ptr 로 해주는 방법이 있다.

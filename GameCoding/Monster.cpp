@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Monster.h"
+#include "InputManager.h"
 
 Monster::Monster() : Object(ObjectType::Monster)
 {
@@ -20,10 +21,33 @@ void Monster::Init()
 
 void Monster::Update()
 {
+	Vector mousePos = GET_SINGLE(InputManager)->GetMousePos();
 
+	// start -> end
+	Vector v1 = _end - _start;
+
+	// start -> mousePos
+	Vector v2 = mousePos - _start;
+
+	// 내각의 투영(projection) 에 대해 설명할 수 있는지 ??
+	float maxLength = v1.Length();
+	v1.Normalize();
+	float dot = v1.Dot(v2);
+	Pos pos = _start + v1 * dot;
+	if (dot < 0 || dot > maxLength) return;
+	_pos = pos;
 }
 
 void Monster::Render(HDC hdc)
 {
-	Utils::DrawRect(hdc, _pos, 50, 50);
+	Utils::DrawCircle(hdc, _pos, 50);
+
+	// 경계선
+	HPEN pen = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	HPEN oldPen = (HPEN)::SelectObject(hdc, pen);
+	{
+		Utils::DrawLine(hdc, _start, _end);
+	}
+	::SelectObject(hdc, oldPen);
+	::DeleteObject(pen);
 }

@@ -10,5 +10,8 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
+private:
+	Vector _start = { 300, 100 };
+	Vector _end = { 600, 250 };
 };
 
