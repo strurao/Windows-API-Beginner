@@ -10,7 +10,10 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
+	void SetAngle(float angle) { _angle = angle; }
+
 protected:
+	float _angle = 0.f;
 	// Object* _target; 
 	/*
 	이렇게 타겟을 포인터로 해줬을 때 오류가 생길 수 있다

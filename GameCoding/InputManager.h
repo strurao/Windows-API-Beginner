@@ -15,7 +15,10 @@ enum class KeyType // 윈도우 API 에 맞춰준다
 	W = 'W',
 	A = 'A',
 	S = 'S',
-	D = 'D'
+	D = 'D',
+
+	Q = 'Q',
+	E = 'E'
 };
 
 enum class KeyState
