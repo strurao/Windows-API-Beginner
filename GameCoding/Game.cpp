@@ -43,7 +43,7 @@ void Game::Init(HWND hwnd)
 void Game::Update()
 {
 	GET_SINGLE(TimeManager)->Update(); // 프레임 관리를 위해서 현재 시간 계산
-	GET_SINGLE(InputManager)->Update(); // 현재 키보드나 마우스 상태를 모두 저장
+	GET_SINGLE(InputManager)->Update(); // 매 프레임마다 현재 키보드나 마우스 상태를 모두 저장
 	GET_SINGLE(SceneManager)->Update(); // 매 프레임마다 씬을 업데이트
 }
 

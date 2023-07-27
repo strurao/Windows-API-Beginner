@@ -15,13 +15,13 @@ void TimeManager::Update()
 	::QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&currentCount)); // CPU 클럭
 	//currentCount 변수의 주소를 LARGE_INTEGER 포인터로 캐스팅
 
-	_deltaTime = (currentCount - _prevCount) / static_cast<float>(_frequency);
+	_deltaTime = (currentCount - _prevCount) / static_cast<float>(_frequency); // 경과된 시간(초)
 	_prevCount = currentCount;
 
-	_frameCount++;
+	_frameCount++; // 몇번 호출되었는지
 	_frameTime += _deltaTime;
 
-	if (_frameTime >= 1.f)
+	if (_frameTime >= 1.f) // 1초가 되면
 	{
 		_fps = static_cast<uint32>(_frameCount / _frameTime);
 		_frameTime = 0.f;

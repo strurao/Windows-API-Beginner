@@ -53,7 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램의 시작점
         {
             uint64 now = GetTickCount64();
 
-            // if (now - prevTick >= 30)
+            if (now - prevTick >= 60)
             {
                 game.Update();
                 game.Render();
