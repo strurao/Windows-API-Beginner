@@ -93,6 +93,13 @@ struct Vector
 		return x * other.x + y * other.y;
 	}
 
+	// Cross_product 외적
+	float Cross(Vector other)
+	{
+		// 일단 우리가 임의로 한 쪽 방향으로 정해주면 반대 방향이 음수로 나올 것.
+		return x * other.y - y * other.x; // vector k
+	}
+
 	float x = 0;
 	float y = 0;
 };
