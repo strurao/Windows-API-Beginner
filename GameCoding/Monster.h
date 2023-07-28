@@ -13,8 +13,12 @@ public:
 private:
 	// Vector _start = { 300, 100 };
 	// Vector _end = { 600, 250 };
-	Vector _pt1 = { 400, 150 };
-	Vector _pt2 = { 600, 450 };
-	Vector _pt3 = { 200, 450 };
+	// Vector _pt1 = { 400, 150 };
+	// Vector _pt2 = { 600, 450 };
+	// Vector _pt3 = { 200, 450 };
+	
+	//몬스터가 바라보는 방향
+	Vector _lookPos = {};
+	Vector _lookDir = {};
 };
 

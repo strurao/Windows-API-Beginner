@@ -17,6 +17,11 @@ void Monster::Init()
 	_stat.hp = 100;
 	_stat.maxHp = 100;
 	_stat.speed = 10;
+
+	_pos = Pos{ 400, 300 };
+	_lookPos = Pos{ 400, 70 };
+	_lookDir = _lookPos - _pos;
+	_lookDir.Normalize();
 }
 
 void Monster::Update()
@@ -45,25 +50,46 @@ void Monster::Update()
 
 void Monster::Render(HDC hdc)
 {
-	Vector mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	Utils::DrawCircle(hdc, _pos, 100);
 
 
 	// Utils::DrawCircle(hdc, _pos, 50);
 
-	// 경계선
+	// 몬스터가 바라보고 있는 방향 front direction
 	HPEN pen = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	HPEN oldPen = (HPEN)::SelectObject(hdc, pen);
 	{
 		// Utils::DrawLine(hdc, _start, _end); // 내적 예시용
-		Utils::DrawLine(hdc, _pt1, _pt2); // 외적 예시용
-		Utils::DrawLine(hdc, _pt2, _pt3); // 외적 예시용
-		Utils::DrawLine(hdc, _pt3, _pt1); // 외적 예시용
+		// Utils::DrawLine(hdc, _pt1, _pt2); // 외적 예시용
+		// Utils::DrawLine(hdc, _pt2, _pt3); // 외적 예시용
+		// Utils::DrawLine(hdc, _pt3, _pt1); // 외적 예시용
 
+		Utils::DrawLine(hdc, _pos, _lookPos);
 	}
 	::SelectObject(hdc, oldPen);
 	::DeleteObject(pen);
 
 	//////
+	Vector mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	Vector monsterToMouseDir = mousePos - _pos;
+	monsterToMouseDir.Normalize();
+
+	Vector dir = _lookDir;
+	dir.Normalize();
+	float dot = monsterToMouseDir.Dot(dir);
+	float radian = ::acos(dot); // 결과값이 radian 이다
+	float angle = radian * 180 / 3.14f;
+
+	float cross = _lookDir.Cross(monsterToMouseDir);
+	if (cross < 0) 
+		angle = 360 - angle;
+	{
+		wstring str = std::format(L"angle{0}", angle);
+		Utils::DrawTextW(hdc, { 20, 50 }, str);
+	}
+
+
+	/*
 	Utils::DrawLine(hdc, _pt1, mousePos); // 외적 예시용 - 마우스 위치용
 
 	Vector v12 = _pt2 - _pt1;
@@ -88,4 +114,5 @@ void Monster::Render(HDC hdc)
 
 	wstring str = std::format(L"c1({0}), c2({1})", c1, c2);
 	Utils::DrawTextW(hdc, { 20, 50 }, str);
+	*/
 }
