@@ -36,6 +36,9 @@
     <Filter Include="소스 파일\04. Resources\Game">
       <UniqueIdentifier>{d1e36eae-1759-4984-bfcd-8451323a616f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01. Manager\Game">
+      <UniqueIdentifier>{97d0f194-ccb4-46c6-8275-2eb8b7c841a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCoding.h">
@@ -113,6 +116,12 @@
     <ClInclude Include="LineMesh.h">
       <Filter>소스 파일\04. Resources\Game</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>소스 파일\01. Manager\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Values.h">
+      <Filter>소스 파일\99. Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameCoding.rc">
@@ -184,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="LineMesh.cpp">
       <Filter>소스 파일\04. Resources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>소스 파일\01. Manager\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
