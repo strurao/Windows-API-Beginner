@@ -5,6 +5,7 @@
 #include "ObjectManager.h"
 #include "ResourceManager.h"
 #include "LineMesh.h"
+#include "UIManager.h"
 // #include "Missile.h"
 
 Player::Player() : Object(ObjectType::Player)
@@ -39,6 +40,8 @@ void Player::Update()
 	if (_playerTurn == false)
 		return; // 내 턴이 아니면 종료
 
+	UpdateFireAngle();
+
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::A))
 	{
 		_pos.x -= _stat.speed * deltaTime;
@@ -53,12 +56,14 @@ void Player::Update()
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::W))
 	{
+		_fireAngle = ::clamp(_fireAngle + 50 * deltaTime, 0.f, 75.f); //min, max 2번보다 깔끔한 방식.
 		// _pos.y -= _stat.speed * deltaTime;
 		// Fortress
 	}
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::S))
 	{
+		_fireAngle = ::clamp(_fireAngle - 50 * deltaTime, 0.f, 75.f);
 		// _pos.y += _stat.speed * deltaTime;
 		// Fortress
 	}
@@ -73,7 +78,7 @@ void Player::Update()
 		// _barrelAngle -= 10 * deltaTime;
 	}
 
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::SpaceBar))
+	if (GET_SINGLE(InputManager)->GetButton(KeyType::SpaceBar))
 	{
 		// TODO: 미사일 발사
 		/*
@@ -82,6 +87,18 @@ void Player::Update()
 		missile->SetAngle(_barrelAngle);
 		GET_SINGLE(ObjectManager)->Add(missile);
 		*/
+
+		// 파워 게이지 올리기
+		float percent = GET_SINGLE(UIManager)->GetPowerPercent();
+		percent = min(100, percent + 100 * deltaTime);
+		GET_SINGLE(UIManager)->SetPowerPercent(percent);
+	}
+
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::SpaceBar))
+	{
+		// SpaceBar 키를 딱 놓는 순간
+		// 슈팅
+
 	}
 }
 
@@ -148,4 +165,18 @@ wstring Player::GetMeshKey()
 		return L"MissileTank";
 
 	return L"CanonTank";
+}
+
+void Player::UpdateFireAngle()
+{
+	if (_dir == Dir::Left)
+	{
+		GET_SINGLE(UIManager)->SetPlayerAngle(180);
+		GET_SINGLE(UIManager)->SetBarrelAngle(180 - _fireAngle); // 포탄 각도
+	}
+	else
+	{
+		GET_SINGLE(UIManager)->SetPlayerAngle(0);
+		GET_SINGLE(UIManager)->SetBarrelAngle(_fireAngle); // 포탄 각도
+	}
 }

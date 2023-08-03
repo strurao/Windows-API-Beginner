@@ -25,6 +25,8 @@ public:
 	PlayerType GetPlayerType() { return _playerType; }
 	bool GetPlayerTurn() { return _playerTurn; }
 
+	void UpdateFireAngle();
+
 public:
 	// float _barrelAngle = 0.f; // 포신 각도
 	// float _barrelLength = 100.f; // 포신 길이
