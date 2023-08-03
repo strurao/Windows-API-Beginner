@@ -27,6 +27,8 @@ void FortressScene::Init()
 		// 첫 번째 플레이어
 		Player* player = GET_SINGLE(ObjectManager)->CreateObject<Player>();
 		player->SetPlayerType(PlayerType::MissileTank); // RPG 게임의 직업군이 이 예시이다
+		player->SetPlayerId(0);
+		player->SetPlayerTurn(true);
 
 		GET_SINGLE(ObjectManager)->Add(player);
 
