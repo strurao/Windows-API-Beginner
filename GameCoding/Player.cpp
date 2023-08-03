@@ -103,6 +103,23 @@ void Player::Render(HDC hdc)
 			mesh->Render(hdc, _pos, -0.5f, 0.5f); // 비율 적용 가능 // 음수값을 넣으면 좌우반전이 된ek
 	}
 
+	if (_playerTurn) // 내 차례가 왔다면.. 노란 공을 머리 위에 그려주기
+	{
+		RECT rect;
+		rect.bottom = static_cast<LONG>(_pos.y - 60);
+		rect.left = static_cast<LONG>(_pos.x - 10);
+		rect.right = static_cast<LONG>(_pos.x + 10);
+		rect.top = static_cast<LONG>(_pos.y - 80);
+
+		HBRUSH brush = ::CreateSolidBrush(RGB(250, 236, 197));
+		HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, brush);
+
+		::Ellipse(hdc, rect.left, rect.top, rect.right, rect.bottom);
+
+		::SelectObject(hdc, oldBrush);
+		::DeleteObject(brush);
+	}
+
 	// Utils::DrawCircle(hdc, _pos, 50);
 	
 	HPEN pen = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0)); // 빨간펜
