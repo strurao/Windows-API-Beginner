@@ -39,6 +39,9 @@
     <Filter Include="소스 파일\01. Manager\Game">
       <UniqueIdentifier>{97d0f194-ccb4-46c6-8275-2eb8b7c841a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\01. Manager\Game\Fortress">
+      <UniqueIdentifier>{d22ac372-5989-472e-9a6f-36800eb46fd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCoding.h">
@@ -122,6 +125,12 @@
     <ClInclude Include="Values.h">
       <Filter>소스 파일\99. Headers</Filter>
     </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>소스 파일\01. Manager\Game\Fortress</Filter>
+    </ClInclude>
+    <ClInclude Include="FortressScene.h">
+      <Filter>소스 파일\01. Manager\Game\Fortress</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameCoding.rc">
@@ -196,6 +205,12 @@
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>소스 파일\01. Manager\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="FortressScene.cpp">
+      <Filter>소스 파일\01. Manager\Game\Fortress</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>소스 파일\01. Manager\Game\Fortress</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
