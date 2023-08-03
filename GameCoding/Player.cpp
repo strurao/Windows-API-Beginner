@@ -3,9 +3,9 @@
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "ObjectManager.h"
-#include "Missile.h"
 #include "ResourceManager.h"
 #include "LineMesh.h"
+// #include "Missile.h"
 
 Player::Player() : Object(ObjectType::Player)
 {
@@ -33,67 +33,102 @@ void Player::Update()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 	// 거리 = 시간 * 속도
 
+
+	// 입력
+
+	if (_playerTurn == false)
+		return; // 내 턴이 아니면 종료
+
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::A))
 	{
 		_pos.x -= _stat.speed * deltaTime;
+		_dir = Dir::Left;
 	}
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::D))
 	{
 		_pos.x += _stat.speed * deltaTime;
+		_dir = Dir::Right;
 	}
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::W))
 	{
-		_pos.y -= _stat.speed * deltaTime;
+		// _pos.y -= _stat.speed * deltaTime;
+		// Fortress
 	}
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::S))
 	{
-		_pos.y += _stat.speed * deltaTime;
+		// _pos.y += _stat.speed * deltaTime;
+		// Fortress
 	}
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::Q))
 	{
-		_barrelAngle += 10 * deltaTime;
+		// _barrelAngle += 10 * deltaTime;
 	}
 
 	if (GET_SINGLE(InputManager)->GetButton(KeyType::E))
 	{
-		_barrelAngle -= 10 * deltaTime;
+		// _barrelAngle -= 10 * deltaTime;
 	}
 
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::SpaceBar))
 	{
 		// TODO: 미사일 발사
+		/*
 		Missile* missile = GET_SINGLE(ObjectManager)->CreateObject<Missile>();
 		missile->SetPos(GetFirePos());
 		missile->SetAngle(_barrelAngle);
 		GET_SINGLE(ObjectManager)->Add(missile);
+		*/
 	}
 }
 
 void Player::Render(HDC hdc)
 {
+	if (_dir == Dir::Left)
+	{
+		const LineMesh* mesh = GET_SINGLE(ResourceManager)->GetLineMesh(GetMeshKey());
+
+		if (mesh)
+			mesh->Render(hdc, _pos, 0.5f, 0.5f); // 비율 적용 가능 // 음수값을 넣으면 좌우반전이 된다
+
+	}
+	else
+	{
+		const LineMesh* mesh = GET_SINGLE(ResourceManager)->GetLineMesh(GetMeshKey());
+
+		if (mesh)
+			mesh->Render(hdc, _pos, -0.5f, 0.5f); // 비율 적용 가능 // 음수값을 넣으면 좌우반전이 된ek
+	}
+
 	// Utils::DrawCircle(hdc, _pos, 50);
-	const LineMesh* mesh = GET_SINGLE(ResourceManager)->GetLineMesh(L"CanonTank");
-
-	if (mesh)
-		mesh->Render(hdc, _pos);
-
+	
 	HPEN pen = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0)); // 빨간펜
 	HPEN oldPen = (HPEN)::SelectObject(hdc, pen);
 
-	Utils::DrawLine(hdc, _pos, GetFirePos());
+	// Utils::DrawLine(hdc, _pos, GetFirePos());
 
 	::SelectObject(hdc, oldPen);
 	::DeleteObject(pen);
 }
 
+/*
 Pos Player::GetFirePos()
 {
 	Pos firePos = _pos;
 	firePos.x += _barrelLength * cos(_barrelAngle);
 	firePos.y -= _barrelLength * sin(_barrelAngle);
 	return firePos;
+}
+*/
+
+// Fortress
+wstring Player::GetMeshKey()
+{
+	if (_playerType == PlayerType::MissileTank) // 예를 들어 PRG 게임에서 직업별로 다른 걸 구현할 때~
+		return L"MissileTank";
+
+	return L"CanonTank";
 }
