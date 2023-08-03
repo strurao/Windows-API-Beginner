@@ -1,17 +1,6 @@
 #pragma once
 #include "Object.h"
 
-enum class PlayerType
-{
-	CanonTank,
-	MissileTank
-};
-
-enum class Dir
-{
-	Left,
-	Right
-};
 
 class Player : public Object
 {

@@ -28,21 +28,23 @@ void FortressScene::Init()
 		Player* player = GET_SINGLE(ObjectManager)->CreateObject<Player>();
 		player->SetPlayerType(PlayerType::MissileTank); // RPG 게임의 직업군이 이 예시이다
 		player->SetPlayerId(0);
-		player->SetPlayerTurn(true);
 
 		GET_SINGLE(ObjectManager)->Add(player);
 
 		player->SetPos(Vector{ 100,400 });
+		player->SetPlayerTurn(true);
 	}
 
 	{
 		// 두 번째 플레이어
 		Player* player = GET_SINGLE(ObjectManager)->CreateObject<Player>();
 		player->SetPlayerType(PlayerType::CanonTank); // RPG 게임의 직업군이 이 예시이다
+		player->SetPlayerId(1);
 
 		GET_SINGLE(ObjectManager)->Add(player);
 
 		player->SetPos(Vector{ 700,400 });
+		player->SetPlayerTurn(false);
 	}
 }
 
