@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "LineMesh.h"
 #include "UIManager.h"
+#include "Bullet.h"
 // #include "Missile.h"
 
 Player::Player() : Object(ObjectType::Player)
@@ -94,11 +95,21 @@ void Player::Update()
 		GET_SINGLE(UIManager)->SetPowerPercent(percent);
 	}
 
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::SpaceBar))
+	if (GET_SINGLE(InputManager)->GetButtonUp(KeyType::SpaceBar))
 	{
 		// SpaceBar 키를 딱 놓는 순간
 		// 슈팅
+		_playerTurn = false;
 
+		float percent = GET_SINGLE(UIManager)->GetPowerPercent();
+		float speed = 10.f * percent;
+		float angle = GET_SINGLE(UIManager)->GetBarrelAngle();
+
+		// TODO 
+		Bullet* bullet = GET_SINGLE(ObjectManager)->CreateObject<Bullet>();
+		bullet->SetPos(_pos);
+		bullet->SetSpeed(Vector{ speed*::cos(angle*PI/180), -1*speed*::sin(angle*PI/180)});
+		GET_SINGLE(ObjectManager)->Add(bullet);
 	}
 }
 
@@ -110,7 +121,6 @@ void Player::Render(HDC hdc)
 
 		if (mesh)
 			mesh->Render(hdc, _pos, 0.5f, 0.5f); // 비율 적용 가능 // 음수값을 넣으면 좌우반전이 된다
-
 	}
 	else
 	{
