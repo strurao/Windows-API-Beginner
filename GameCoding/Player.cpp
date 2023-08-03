@@ -76,7 +76,7 @@ void Player::Update()
 void Player::Render(HDC hdc)
 {
 	// Utils::DrawCircle(hdc, _pos, 50);
-	const LineMesh* mesh = GET_SINGLE(ResourceManager)->GetLineMesh(L"Player");
+	const LineMesh* mesh = GET_SINGLE(ResourceManager)->GetLineMesh(L"CanonTank");
 
 	if (mesh)
 		mesh->Render(hdc, _pos);
